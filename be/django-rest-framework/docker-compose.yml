@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  django:
+    image: 'python:3.9-slim'
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
