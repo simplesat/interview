@@ -15,9 +15,9 @@ CUSTOMERS = [
 ]
 
 TICKETS = [
-    ("Cannot log in to the dashboard", Ticket.STATUS_CLOSED),
-    ("Billing charged me twice", Ticket.STATUS_PENDING),
-    ("Feature request: CSV export", Ticket.STATUS_OPEN),
+    "Cannot log in to the dashboard",
+    "Billing charged me twice",
+    "Feature request: CSV export",
 ]
 
 SURVEYS = [
@@ -76,10 +76,9 @@ class Command(BaseCommand):
             Ticket.objects.create(
                 customer=customers[index],
                 subject=subject,
-                status=status,
                 created_at=now - timedelta(days=rng.randint(10, 60)),
             )
-            for index, (subject, status) in enumerate(TICKETS)
+            for index, subject in enumerate(TICKETS)
         ]
 
         surveys = []

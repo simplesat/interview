@@ -11,22 +11,10 @@ class Customer(models.Model):
 
 
 class Ticket(models.Model):
-    STATUS_OPEN = "open"
-    STATUS_PENDING = "pending"
-    STATUS_CLOSED = "closed"
-    STATUS_CHOICES = [
-        (STATUS_OPEN, "Open"),
-        (STATUS_PENDING, "Pending"),
-        (STATUS_CLOSED, "Closed"),
-    ]
-
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name="tickets"
     )
     subject = models.CharField(max_length=255)
-    status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default=STATUS_OPEN
-    )
     created_at = models.DateTimeField()
 
     def __str__(self):
