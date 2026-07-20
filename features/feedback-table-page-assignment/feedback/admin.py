@@ -11,8 +11,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ("id", "subject", "customer", "status", "created_at")
-    list_filter = ("status",)
+    list_display = ("id", "subject", "customer", "created_at")
     search_fields = ("subject",)
 
 

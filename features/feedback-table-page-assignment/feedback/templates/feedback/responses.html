@@ -24,7 +24,6 @@
                 <th>Survey</th>
                 <th>Ticket</th>
                 <th>Ratings</th>
-                <th>Status</th>
                 <th>Submitted</th>
             </tr>
         </thead>
@@ -36,7 +35,6 @@
                 <td>{{ row.response.survey.name }}</td>
                 <td>{{ row.ticket_subject }}</td>
                 <td>{{ row.ratings|join:", " }}</td>
-                <td>{{ row.response.status }}</td>
                 <td>{{ row.response.submitted_at }}</td>
             </tr>
             {% endfor %}
