@@ -4,8 +4,9 @@
 
 You are the senior engineer on the team that owns the survey builder, working
 the way you would on the job, AI tools included. It is a small app: admins
-build surveys, respondents answer them. The code is yours now: how it behaves,
-how it is built, and what ships next are your responsibility.
+build surveys, respondents answer them. The code and architecture are yours
+now: how it behaves, how it is built, and what ships next are your
+responsibility.
 
 Two things are waiting for you:
 
@@ -25,7 +26,9 @@ server checks what it receives. The rules are A0 to A10 in
 
 **B. Multi-select questions.** A new question type next to rating and single
 choice: the respondent picks one or more choices from a list the admin writes.
-The rules are B1 to B5 in
+A multi-select question can have actions too: when a choice is picked, a
+follow-up question shows, and several can show at once. The rules are B1 to B11
+in
 [how-the-survey-builder-works.md](how-the-survey-builder-works.md).
 
 Treat this as you would a real week on the team. Work out what matters most,
@@ -51,7 +54,7 @@ We read your work in four ways.
 | File | What it is |
 |---|---|
 | [../README.md](../README.md) | How to run the app, load data, run tests, and a tour of the code |
-| [how-the-survey-builder-works.md](how-the-survey-builder-works.md) | How the survey builder is meant to behave (rules 1 to 16), and the rules for the two features (A0 to A10 and B1 to B5). Treat it as the source of truth for expected behaviour |
+| [how-the-survey-builder-works.md](how-the-survey-builder-works.md) | How the survey builder is meant to behave (rules 1 to 16), and the rules for the two features (A0 to A10 and B1 to B11). Treat it as the source of truth for expected behaviour |
 | [tickets/](tickets/) | Six customer tickets |
 
 ## What to deliver
@@ -87,7 +90,7 @@ You decide how much of **A, sentiment and question actions**, and **B,
 multi-select questions**, to build, and in what order. Both are described in
 [how-the-survey-builder-works.md](how-the-survey-builder-works.md):
 
-- Rules **A0 to A10** define feature A. Rules **B1 to B5** define feature B.
+- Rules **A0 to A10** define feature A. Rules **B1 to B11** define feature B.
 - All the survey builder rules, **1 to 16**, must keep holding after the
   features are in.
 - How you store things is your call. Be ready to explain it.

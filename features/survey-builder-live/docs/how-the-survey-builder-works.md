@@ -9,7 +9,7 @@ and PRs.
 |---|---|---|
 | The survey builder | 1 to 16 | How the builder is meant to behave today, whatever the code does at the moment. |
 | Homework A: sentiment and question actions | A0 to A10 | New work. The app does not do any of this yet. |
-| Homework B: multi-select questions | B1 to B5 | New work. The app does not do any of this yet. |
+| Homework B: multi-select questions | B1 to B11 | New work. The app does not do any of this yet. |
 
 Rules 1 to 16 must still hold once you have added A and B.
 
@@ -27,9 +27,9 @@ Rules 1 to 16 must still hold once you have added A and B.
 | **Answer count** | The number the builder shows next to each choice and each rating point: how many answers picked it. |
 | **Archived** | What happens to an item the admin deletes. It no longer shows in the builder or to respondents, but it stays stored, and the answers given against it stay readable. |
 | **Sentiment** | *(Homework A.)* `negative`, `neutral`, or `positive`. Every rating point has one, fixed by its rating number and the scale size. |
-| **Question action** | *(Homework A.)* A rule on a rating question: "Answer is *sentiment*: show a follow-up". |
+| **Question action** | *(Homework A.)* A rule on a rating question: "Answer is *sentiment*: show a follow-up". On a multi-select question (homework B) it is "*this choice* is picked: show a follow-up". |
 | **Follow-up question** | *(Homework A.)* The question an action shows: a comment or a single choice. |
-| **Actions toggle** | *(Homework A.)* Turns a rating question's actions on or off. |
+| **Actions toggle** | *(Homework A.)* Turns a question's actions on or off. |
 
 ## Rating scales
 
@@ -111,7 +111,8 @@ New work. These rules build on rules 1 to 16.
 
   The rule for every size: the lower half is negative, the upper half is
   positive, and the middle point of an odd scale is neutral.
-- **A1.** Actions exist only on rating questions.
+- **A1.** Actions exist on rating questions. (Homework B adds them to
+  multi-select questions, rule B6.)
 - **A2.** A question has at most one action per sentiment, so a rating triggers
   at most one follow-up.
 - **A3.** Each action owns exactly one follow-up question, of type **comment**
@@ -144,6 +145,22 @@ New work. These rules build on rules 1 to 16.
 - **B3.** Choices follow rule 8.
 - **B4.** Rules 2 and 14 to 16 apply.
 - **B5.** No minimum or maximum number of picks, beyond rule B2.
+- **B6.** Multi-select questions can have actions, as rating questions can
+  (rule A1). An action on a multi-select question is "*this choice* is picked:
+  show a follow-up". Each action is tied to one choice.
+- **B7.** A choice has at most one action. Each action owns exactly one
+  follow-up question, a comment or a single choice (rule A3).
+- **B8.** The respondent can pick several choices, so several follow-ups can be
+  due at once. Each shows right after the question, in the order of its choice
+  in the list. Every follow-up whose choice is picked shows, not only one.
+- **B9.** If the respondent un-picks a choice, its follow-up disappears and its
+  answer is dropped, as in rule A5.
+- **B10.** Rules A6, A7, A8 and A10 apply to these actions too. On submit the
+  server accepts a follow-up answer only if the picks in the same response
+  trigger it.
+- **B11.** Moving a choice never changes which action belongs to it (rule 16).
+  Removing a choice archives its action and follow-up, and never deletes
+  answers (rule 14).
 
 ## Worked example
 
@@ -176,6 +193,17 @@ positive: single choice "What did you like?" with Speed and Friendliness):
 | Great (5), then changes to Bad (2) | "What did you like?" disappears with its answer. "What went wrong?" shows. |
 | Bad, with actions toggled off | None. The actions are kept for later. |
 
+With homework B on a multi-select question "What did you use?" (Phone, Email,
+Chat), with an action on Phone (comment "What went wrong on the call?",
+required) and an action on Chat (single choice "Was the bot involved?"):
+
+| Respondent picks | Follow-ups |
+|---|---|
+| Email | None. |
+| Phone | "What went wrong on the call?", which must be answered. |
+| Phone and Chat | Both, Phone's first, in the order of the choices. |
+| Phone and Chat, then un-picks Phone | Phone's follow-up and its answer disappear. Chat's stays. |
+
 ## Data flow
 
 ```
@@ -189,7 +217,7 @@ Server --- add / update / archive, same items stay the same items, answers never
                                                           |
                                                           | submit (whole response)
                                                           v
-                                         Server checks required (and A4 to A8), then saves
+                                         Server checks required (and A4 to A8, B8 to B10), then saves
 ```
 
 The builder and the live preview read one shared state, so an edit shows in the
