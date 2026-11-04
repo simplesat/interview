@@ -51,9 +51,11 @@ We read your work in four ways.
 
 ## Where things are
 
-| File | What it is |
+| Where | What it is |
 |---|---|
 | [../README.md](../README.md) | How to run the app, load data, run tests, and a tour of the code |
+| [../backend/](../backend/) | The starter source code for the API: Django and Django REST Framework on Postgres, in three apps (`surveys`, `questions`, `answers`) |
+| [../frontend/](../frontend/) | The starter source code for the app: React, TypeScript and Vite. The builder, the live preview and the respondent page |
 | [how-the-survey-builder-works.md](how-the-survey-builder-works.md) | How the survey builder is meant to behave (rules 1 to 16), and the rules for the two features (A0 to A10 and B1 to B11). Treat it as the source of truth for expected behaviour |
 | [tickets/](tickets/) | Six customer tickets |
 
